@@ -1,14 +1,17 @@
-import { Route } from 'wouter'
-
 import HomePage from './pages/home-page'
+import AddUserPage from './pages/add-user-page'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import AddDataPage from './pages/add-data-page'
 
 function App() {
   return (
     <div>
-      <Route path={"/"} component={HomePage} />
-      <Route path={"/add-data"} component={AddDataPage} />
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/"} element={<HomePage />} />
+          <Route path={"/add-user"} element={<AddUserPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

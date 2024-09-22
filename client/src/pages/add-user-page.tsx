@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { submitData } from "../functions/submit-data"
 
-function AddDataPage() {
-  const [data, setData]= useState({
+function AddUserPage() {
+  const [user, setUser] = useState({
     name: "",
     email: "",
   })
@@ -13,9 +13,9 @@ function AddDataPage() {
         Add data to your database here !!
       </h1>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          submitData(data)
+          await submitData(user)
         }}
         className="flex flex-col gap-4"
       >
@@ -24,8 +24,8 @@ function AddDataPage() {
           placeholder="enter name.."
           name="name"
           className="border-2 p-2"
-          value={data.name}
-          onChange={e=> setData(prev => ({
+          value={user.name}
+          onChange={e => setUser(prev => ({
             ...prev,
             name: e.target.value
           }))}
@@ -35,8 +35,8 @@ function AddDataPage() {
           placeholder="enter email.."
           name="email"
           className="border-2 p-2"
-          value={data.email}
-          onChange={e=> setData(prev => ({
+          value={user.email}
+          onChange={e => setUser(prev => ({
             ...prev,
             email: e.target.value
           }))}
@@ -52,4 +52,4 @@ function AddDataPage() {
   )
 }
 
-export default AddDataPage
+export default AddUserPage;

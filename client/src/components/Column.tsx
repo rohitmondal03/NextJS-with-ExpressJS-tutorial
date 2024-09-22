@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-const Column = ({ id, title }: TTask) => {
+const Column = ({ id, name }: TTask) => {
   const {
     attributes,
     listeners,
@@ -21,10 +21,10 @@ const Column = ({ id, title }: TTask) => {
       {...attributes}
       {...listeners}
       style={style}
-      className="flex items-center gap-10 bg-zinc-200 w-72 p-4 rounded-lg touch-none"
+      className="bg-zinc-200 w-72 p-4 rounded-lg touch-none"
     >
-      <p>{id}</p>
-      <h3>{title}</h3>
+      <p>ID: {id}</p>
+      <h3>Name: {name}</h3>
     </div>
   )
 }

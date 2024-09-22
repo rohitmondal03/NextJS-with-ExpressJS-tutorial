@@ -6,11 +6,11 @@ import mongoose from "mongoose";
 import ShortUniqueId from "short-unique-id"
 import jwt from "jsonwebtoken"
 
-import { PORT, TASKS, WEB_TOKEN_SECRET } from "./config"
+import { PORT, WEB_TOKEN_SECRET } from "./config"
 import { addDataMiddleware } from "./middlewares/addData.middleware";
-import { DemoModel } from "./models/demo.model";
+import { DemoModel } from "./db/models/demo.model";
 
-config()
+config();
 const app = express();
 
 // middlewares
@@ -32,27 +32,30 @@ const generateToken = (name: string, email: string) => {
 
 // generate random ID/string
 const generateRandomUid = (length: number) => {
-  const randomUid = new ShortUniqueId({
-    length: 10,
-  })
+  const randomUid = new ShortUniqueId({ length });
 
   return randomUid.randomUUID();
 }
-  
-app.get("/get-posts", (_, res) => {
-  res.send(TASKS);
+
+app.get("/get-users", async (_, res) => {
+  const todos = await DemoModel.find();
+  res.json(todos);
 })
 
-app.post("/add-data", addDataMiddleware, async (req, res) => {
+app.post("/add-user", addDataMiddleware, async (req, res) => {
   const { name, email } = req.body;
 
   await DemoModel.create({
     id: generateRandomUid(10),
-    name,
-    email,
     created_at: new Date(),
     auth_token: generateToken(name, email),
+    name,
+    email,
   })
+    .then(() => res.redirect("/"))
+    .catch(err => res.send({
+      message: `Error adding data: ${err}`
+    }))
 })
 
 mongoose.connect(process.env.MONGO_DB_URL ?? "", {

@@ -1,4 +1,5 @@
 type TTask = {
-  id: number;
-  title: string;
+  id: string;
+  name: string;
+  email: string;
 }

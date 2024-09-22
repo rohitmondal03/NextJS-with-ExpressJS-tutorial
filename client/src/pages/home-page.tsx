@@ -27,7 +27,7 @@ function HomePage() {
   // Fetch tasks
   useEffect(() => {
     (async () => {
-      const data: TTask[] = await axios.get(`${SERVER_BASE_URL}/get-posts`)
+      const data: TTask[] = await axios.get(`${SERVER_BASE_URL}/get-users`)
         .then(data => data.data)
         .catch(err => console.error("Error", err))
 
@@ -63,8 +63,10 @@ function HomePage() {
 
 
   return (
-    <section>
-      <h1 className='text-xl'>My Tasks</h1>
+    <section className='p-8 space-y-8'>
+      <h1 className='text-xl font-bold'>
+        Users
+      </h1>
       <DndContext
         sensors={sensors}
         onDragEnd={handleDragEnd}
@@ -76,7 +78,7 @@ function HomePage() {
         >
           <div className='space-y-4'>
             {tasks.map((task) => (
-              <Column {...task} key={task.id} />
+              <Column {...task} name={task.name} key={task.id} />
             ))}
           </div>
         </SortableContext>
