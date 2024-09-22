@@ -1,5 +1,7 @@
 export const PORT = 3000;
 
+export const WEB_TOKEN_SECRET = "s3creT"
+
 export const TASKS = [
   {
     id: 1,
